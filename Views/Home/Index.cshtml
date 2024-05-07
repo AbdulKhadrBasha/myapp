@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var osVersion = ViewBag.OSVersion;
+    var cpuUsage = ViewBag.CpuUsage;
+    var memUsage = ViewBag.MemUsage;
+}
+
+<div class="text-center">
+    <h2 class="display-4">OS version is: <b>@osVersion</b></h2>
+    <h2 class="display-4">CPU% is: <b>@cpuUsage</b></h2>
+    <h2 class="display-4">Memory is: <b>@memUsage MB</b></h2>
+</div>

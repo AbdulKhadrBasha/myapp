@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Logging Info";
+    var data = ViewBag.Data;
+}
+
+   @foreach(var item in data)
+    {
+        @* <div style="float:left;">@item.iD</div>
+        <br />
+        <div style="float:left;">@item.name</div>
+        <br />
+        <div style="float:left;">@item.details</div>
+        <br />
+        <div style="float:left;">@item.location</div>
+        <br />
+        <div style="float:left;">@item.accessCount</div>
+        <br />
+        <div style="float:left;">@item.accessDateTime</div>
+        <br /> *@
+    <tr>
+        <td>
+            @item.iD
+        </td>
+        <td>
+            @item.name
+        </td>
+        <td>
+            @item.details
+        </td>
+        <td>
+            @item.location
+        </td>
+        <td>
+            @item.accessCount
+        </td>
+        <td>
+            @item.accessDateTime
+        </td>
+    </tr>
+    <br />
+    }
+
