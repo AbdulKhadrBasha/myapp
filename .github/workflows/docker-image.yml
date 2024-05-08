@@ -15,12 +15,8 @@ jobs:
     - name: Build and push console
       working-directory: .
       run: |
-        docker build -t myapp:$env:version --file Dockerfile .
-        docker tag myapp:$env:version samplerndacr.azurecr.io/myapp:$env:version
-        docker login samplerndacr.azurecr.io -u $env:username -p $env:password
-        docker image push samplerndacr.azurecr.io/myapp:$env:version
+        docker build . --file Dockerfile --tag myapp:${{ env.REPO_VERSION }}
+        docker tag myapp:${{ env.REPO_VERSION }} samplerndacr.azurecr.io/myapp:${{ env.REPO_VERSION }}
+        docker login samplerndacr.azurecr.io -u ${{ secrets.REGISTRY_USERNAME }} -p ${{ secrets.REGISTRY_PASSWORD }}
+        docker image push samplerndacr.azurecr.io/myapp:${{ env.REPO_VERSION }}
         docker logout
-      env:
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-        version: ${{ env.REPO_VERSION }}
