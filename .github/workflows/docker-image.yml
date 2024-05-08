@@ -20,7 +20,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
         
     - name: 'Build and push image in to ACR'
-      uses: docker/build-push-action@v6
+      uses: mr-smithers-excellent/docker-build-push@v6
       with:
         push: true
         platforms: windows/amd64
