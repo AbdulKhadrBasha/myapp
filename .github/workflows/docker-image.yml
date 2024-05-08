@@ -15,7 +15,7 @@ jobs:
     - name: Build and push console
       working-directory: .
       run: |
-        docker build -t myapp:"${{env.version}}" --file Dockerfile .
+        docker build -t myapp:"$env.version" --file Dockerfile .
         docker tag myapp:$version samplerndacr.azurecr.io/myapp:$version
         docker login samplerndacr.azurecr.io -u $username -p $password
         docker image push samplerndacr.azurecr.io/myapp:$version
