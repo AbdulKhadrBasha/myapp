@@ -16,6 +16,8 @@ jobs:
       run: |
         version="cat VERSION";
         echo "$version"
+        value="$(cat VERSION)"
+        echo "$value"
       shell: bash
       
     - name: Build and push console
