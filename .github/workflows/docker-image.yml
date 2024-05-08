@@ -16,9 +16,9 @@ jobs:
       working-directory: .
       run: |
         docker build -t myapp:${{env.version}} --file Dockerfile .
-        docker tag myapp:$version samplerndacr.azurecr.io/myapp:$version
-        docker login samplerndacr.azurecr.io -u $username -p $password
-        docker image push samplerndacr.azurecr.io/myapp:$version
+        docker tag myapp:${{env.version}} samplerndacr.azurecr.io/myapp:${{env.version}}
+        docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
+        docker image push samplerndacr.azurecr.io/myapp:${{env.version}}
         docker logout
       env:
         username: ${{ secrets.REGISTRY_USERNAME }}
