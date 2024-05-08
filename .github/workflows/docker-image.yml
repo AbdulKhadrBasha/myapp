@@ -12,9 +12,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Run script file
+    - name: Get version number
       run: |
-        version="$(cat VERSION)";
+        export version="$(cat VERSION)";
         echo "$version"
       shell: bash
       
@@ -29,4 +29,4 @@ jobs:
       env:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        version: $version
+        version: version
