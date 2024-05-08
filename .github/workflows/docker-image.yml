@@ -12,17 +12,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: 'Docker Login'
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+    - name: Build and push console
+      working-directory: .
+      run: |
+        docker build -t myapp:v7 --file Dockerfile .
+        docker tag myapp:v7 samplerndacr.azurecr.io/myapp:v7
+        docker login samplerndacr.azurecr.io -u $env:username -p $env:password
+        docker image push samplerndacr.azurecr.io/myapp:v7
+        docker logout
+      env:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        
-    - name: 'Build and push image in to ACR'
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-        push: true
-        platforms: windows/amd64
-        tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/myapp:v7
-        file: ./Dockerfile
