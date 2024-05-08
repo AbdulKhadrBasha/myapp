@@ -11,7 +11,13 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
-
+      
+    - name: Build and push console
+      working-directory: .
+      run: |
+        version="cat VERSION";
+        echo "$version"
+      
     - name: Build and push console
       working-directory: .
       run: |
@@ -23,4 +29,4 @@ jobs:
       env:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        version: v8
+        version: $version
