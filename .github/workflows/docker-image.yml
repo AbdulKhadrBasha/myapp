@@ -11,12 +11,12 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
-      
-    - name: Build and push console
-      working-directory: .
+
+    - name: Run script file
       run: |
         version="cat VERSION";
         echo "$version"
+      shell: bash
       
     - name: Build and push console
       working-directory: .
