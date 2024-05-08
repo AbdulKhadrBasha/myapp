@@ -29,4 +29,4 @@ jobs:
       env:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-        version: $(vers)
+        version: ${{ env.vers }}
