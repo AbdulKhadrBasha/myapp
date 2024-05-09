@@ -26,7 +26,7 @@ jobs:
         cat ./kubernetes/myapp.yml | envsubst > ./kubernetes/myapp.yml
         cat ./kubernetes/myapp.yml
 
-        export connection_string=$(kubectl get secret dbcon -n dotnet -o jsonpath="{.data.dbconnection}" | base64 --decode)
+        export connection_string=$(kubectl get secret dbconsecret -n dotnet -o jsonpath="{.data.dbconnection}" | base64 --decode)
         echo $connection_string
         cat ./appsettings.json | envsubst > ./appsettings.json
         cat ./appsettings.json
