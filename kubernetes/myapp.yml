@@ -23,12 +23,12 @@ spec:
         image: samplerndacr.azurecr.io/myapp:$tag_version
         ports:
         - containerPort: 8080
-        env:
-        - name: dbconnection
-          valueFrom:
-            secretKeyRef:
-              name: dbcon
-              key: db
+        # env:
+        # - name: dbconnection
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: dbcon
+        #       key: db
 ---
 apiVersion: v1
 kind: Service
