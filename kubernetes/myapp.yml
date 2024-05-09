@@ -24,10 +24,10 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: db_con
+        - name: dbconnection
           valueFrom:
             secretKeyRef:
-              name: dbconnectction
+              name: dbcon
               key: db
 ---
 apiVersion: v1
