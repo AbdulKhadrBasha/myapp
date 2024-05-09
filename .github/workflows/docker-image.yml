@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
+  build-n-push:
     runs-on: windows-2019
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -22,7 +22,8 @@ jobs:
     - name: Set tag var
       id: vars_tag
       run: |
-        echo "docker_tag=$(cat VERSION)" >> $GITHUB_OUTPUT
+        echo var1="$(cat VERSION)"
+        echo "docker_tag=$var1" >> $GITHUB_OUTPUT
         echo $docker_tag
       
     - name: Build and push console
