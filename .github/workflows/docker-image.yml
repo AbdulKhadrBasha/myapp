@@ -12,18 +12,6 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Get version number
-      run: |
-        export vers="$(cat VERSION)";
-        echo "$vers"
-      shell: bash
-
-    - name: Set tag var
-      id: vars_tag
-      run: |
-        echo "$(cat VERSION)" >> $GITHUB_OUTPUT
-        echo "$GITHUB_OUTPUT"
       
     - name: Build and push console
       working-directory: .
