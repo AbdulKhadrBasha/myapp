@@ -31,9 +31,6 @@ public class HomeController : Controller
             // Read the available memory in MB
             float availableMemory = memCounter.NextValue();
 
-            // Wait for a moment to get a more accurate reading
-            System.Threading.Thread.Sleep(1000);
-
             // Read CPU usage percentage again
             cpuUsage = cpuCounter.NextValue();
             ViewBag.CpuUsage = cpuUsage;
@@ -56,9 +53,9 @@ public class HomeController : Controller
         return View();
     }
 
-    //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    //public IActionResult Error()
-    //{
-    //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    //}
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
 }
