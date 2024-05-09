@@ -14,10 +14,6 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-        //"ENV_dbserver": "52.140.1.31",
-        //"ENV_dbname": "webappdb",
-        //"ENV_username": "sa",
-        //"ENV_password": "Basha@123"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7062;http://localhost:5183"

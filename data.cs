@@ -4,8 +4,6 @@ using System.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
-using Dapr.Client;
-using Google.Api;
 
 namespace myapp
 {
@@ -24,30 +22,13 @@ namespace myapp
         public LogInfo(IConfiguration configuration)
         {
             _configuration = configuration;
-            string dbserver = Environment.GetEnvironmentVariable("ENV_dbserver");
-            string dbname = Environment.GetEnvironmentVariable("ENV_dbname");
-            string userName = Environment.GetEnvironmentVariable("ENV_username");
-            string password = Environment.GetEnvironmentVariable("ENV_password");
-
         }
         public List<LogInfo> LogData()
         {
             var dataList = new List<LogInfo>();
             try
             {
-
-
-                //async Task Secret(HttpContext context, DaprClient client)
-                //{
-                //    // Get the secret from kubernetes
-                //    var secretValues = await client.GetSecretAsync(
-                //        "kubernetes", // Name of the Dapr Secret Store
-                //        "db-secrets", // Name of the k8s secret
-                //        new Dictionary<string, string>() { { "namespace", "dotnet" } });
-                //}
-
                 string con = _configuration.GetConnectionString("DbConnection").ToString();
-                //var con = ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
 
                 LogInfo matchingLogInfo;
                 
