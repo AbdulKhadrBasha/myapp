@@ -23,12 +23,12 @@ jobs:
         docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
         docker image push samplerndacr.azurecr.io/myapp:$tag_version
 
-        az login --service-principle --username ${{env.clientid}} -password ${{env.clientsecret}}
+        az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.clientsecret}}
         az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing --admin
 
         cat kubernetes/myapp.yaml | envsubst > ./myapp.yaml
         cat kubernetes/myapp.yaml
-        
+
         kubectl apply -f kubernetes/myapp.yaml -n dotnet
 
         docker logout
@@ -37,3 +37,4 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
         clientid: ${{ secrets.REGISTRY_clientid }}
         clientsecret: ${{ secrets.REGISTRY_clientsecret }}
+        tenantid: ${{ secrets.REGISTRY_tenantid }}
