@@ -23,17 +23,17 @@ jobs:
       id: vars_tag
       run: |
         echo "$(cat VERSION)" >> $GITHUB_OUTPUT
-        echo $GITHUB_OUTPUT
+        echo "$GITHUB_OUTPUT"
       
     - name: Build and push console
       working-directory: .
       shell: bash
       run: |
-        export vers="$(cat VERSION)";
-        docker build -t myapp:$vers --file Dockerfile .
-        docker tag myapp:${{env.version}} samplerndacr.azurecr.io/myapp:${{env.version}}
+        export tag_version="$(cat VERSION)";
+        docker build -t myapp:$tag_version --file Dockerfile .
+        docker tag myapp:$tag_version samplerndacr.azurecr.io/myapp:$tag_version
         docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
-        docker image push samplerndacr.azurecr.io/myapp:${{env.version}}
+        docker image push samplerndacr.azurecr.io/myapp:$tag_version
         docker logout
       env:
         username: ${{ secrets.REGISTRY_USERNAME }}
