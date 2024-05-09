@@ -20,7 +20,7 @@ jobs:
       shell: bash
 
     - name: Set tag var
-      id: vars
+      id: vars_tag
       run: |
         export vers="$(cat VERSION)";
         echo "docker_tag=$vers" >> $GITHUB_OUTPUT
@@ -29,7 +29,7 @@ jobs:
     - name: Build and push console
       working-directory: .
       run: |
-        docker build -t myapp:${{steps.vars.outputs.docker_tag}} --file Dockerfile .
+        docker build -t myapp:${{steps.vars_tag.outputs.docker_tag}} --file Dockerfile .
         docker tag myapp:${{env.version}} samplerndacr.azurecr.io/myapp:${{env.version}}
         docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
         docker image push samplerndacr.azurecr.io/myapp:${{env.version}}
