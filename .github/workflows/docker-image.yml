@@ -1,4 +1,5 @@
-name: Docker Image CI
+
+export vers="$(cat VERSION)";name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
@@ -21,7 +22,8 @@ jobs:
     - name: Set tag var
       id: vars
       run: |
-        echo "docker_tag=$(cat VERSION)}" >> $GITHUB_OUTPUT
+        export vers="$(cat VERSION)";
+        echo "docker_tag=$vers" >> $GITHUB_OUTPUT
         echo $docker_tag
       
     - name: Build and push console
