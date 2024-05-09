@@ -23,7 +23,7 @@ jobs:
         docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
         docker image push samplerndacr.azurecr.io/myapp:$tag_version
 
-        az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.clientsecret}}
+        az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.tenantid}}
         az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing --admin
 
         cat kubernetes/myapp.yaml | envsubst > ./myapp.yaml
