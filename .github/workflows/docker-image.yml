@@ -26,8 +26,8 @@ jobs:
         az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.tenantid}}
         az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing --admin
         ls -lsa
-        cat myapp/kubernetes/myapp.yaml | envsubst > ./myapp/kubernetes/myapp.yaml
-        cat myapp/kubernetes/myapp.yaml
+        cat /kubernetes/myapp.yml | envsubst > ./kubernetes/myapp.yml
+        cat /kubernetes/myapp.yml
 
         kubectl apply -f kubernetes/myapp.yaml -n dotnet
 
