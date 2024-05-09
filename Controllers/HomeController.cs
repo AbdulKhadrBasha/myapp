@@ -20,25 +20,41 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var image_version = System.IO.File.ReadAllText("./VERSION");
-        ViewBag.ImageVersion = image_version;
-        ViewBag.OSVersion = Environment.OSVersion;
-        PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
-        // Read the current CPU usage percentage
-        float cpuUsage = cpuCounter.NextValue();
+        try {
+            //var image_version = System.IO.File.ReadAllText("./VERSION");
 
-        PerformanceCounter memCounter = new PerformanceCounter("Memory", "Available MBytes");
+            string filePath = @"./VERSION";
+            string fileContent = "";
 
-        // Read the available memory in MB
-        float availableMemory = memCounter.NextValue();
-        
-        // Wait for a moment to get a more accurate reading
-        System.Threading.Thread.Sleep(1000);
+            // Open the text file using a stream reader
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                // Read the entire file and display its contents
+                fileContent = sr.ReadToEnd();
+            }
 
-        // Read CPU usage percentage again
-        cpuUsage = cpuCounter.NextValue();
-        ViewBag.CpuUsage = cpuUsage;
-        ViewBag.MemUsage = availableMemory;
+            ViewBag.ImageVersion = fileContent;
+            ViewBag.OSVersion = Environment.OSVersion;
+            PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            // Read the current CPU usage percentage
+            float cpuUsage = cpuCounter.NextValue();
+
+            PerformanceCounter memCounter = new PerformanceCounter("Memory", "Available MBytes");
+
+            // Read the available memory in MB
+            float availableMemory = memCounter.NextValue();
+
+            // Wait for a moment to get a more accurate reading
+            System.Threading.Thread.Sleep(1000);
+
+            // Read CPU usage percentage again
+            cpuUsage = cpuCounter.NextValue();
+            ViewBag.CpuUsage = cpuUsage;
+            ViewBag.MemUsage = availableMemory;
+        }
+        catch(Exception ex) { 
+          var error = ex.ToString();
+        }       
 
         return View();
     }

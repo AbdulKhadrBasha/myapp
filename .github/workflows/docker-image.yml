@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build-n-push:
+  build-n-deploy:
     runs-on: windows-2019
     steps:
     # Checkout the repository to the GitHub Actions runner
