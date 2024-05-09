@@ -23,10 +23,11 @@ jobs:
       id: vars_tag
       run: |
         echo "$(cat VERSION)" >> $GITHUB_OUTPUT
-        $GITHUB_OUTPUT
+        echo $GITHUB_OUTPUT
       
     - name: Build and push console
       working-directory: .
+      shell: bash
       run: |
         export vers="$(cat VERSION)";
         docker build -t myapp:$vers --file Dockerfile .
