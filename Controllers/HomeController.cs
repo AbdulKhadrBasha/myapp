@@ -20,20 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        try {
-            //var image_version = System.IO.File.ReadAllText("./VERSION");
-
-            string filePath = @"./VERSION";
-            string fileContent = "";
-
-            // Open the text file using a stream reader
-            using (StreamReader sr = new StreamReader(filePath))
-            {
-                // Read the entire file and display its contents
-                fileContent = sr.ReadToEnd();
-            }
-
-            ViewBag.ImageVersion = fileContent;
+        try {            
             ViewBag.OSVersion = Environment.OSVersion;
             PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             // Read the current CPU usage percentage
