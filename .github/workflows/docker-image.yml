@@ -23,7 +23,7 @@ jobs:
       id: vars_tag
       run: |
         echo var1="$(cat VERSION)"
-        echo "docker_tag=$var1" >> $GITHUB_OUTPUT
+        echo "docker_tag=$(var1)" >> $GITHUB_OUTPUT
         echo $docker_tag
       
     - name: Build and push console
