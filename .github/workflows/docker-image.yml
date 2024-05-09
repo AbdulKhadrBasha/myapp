@@ -17,11 +17,11 @@ jobs:
       working-directory: .
       shell: bash
       run: |
-        # export tag_version="$(cat VERSION)";
-        # docker build -t myapp:$tag_version --file Dockerfile .
-        # docker tag myapp:$tag_version samplerndacr.azurecr.io/myapp:$tag_version
-        # docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
-        # docker image push samplerndacr.azurecr.io/myapp:$tag_version
+        export tag_version="$(cat VERSION)";
+        docker build -t myapp:$tag_version --file Dockerfile .
+        docker tag myapp:$tag_version samplerndacr.azurecr.io/myapp:$tag_version
+        docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
+        docker image push samplerndacr.azurecr.io/myapp:$tag_version
 
         az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.tenantid}}
         az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing --admin
@@ -33,7 +33,7 @@ jobs:
         echo $connection_string
         cat ./appsettings.json | envsubst > ./appsettings.json
         cat ./appsettings.json
-        # kubectl apply -f ./kubernetes/myapp.yml -n dotnet
+        kubectl apply -f ./kubernetes/myapp.yml -n dotnet
 
         docker logout
       env:
