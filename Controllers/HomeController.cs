@@ -31,6 +31,9 @@ public class HomeController : Controller
             // Read the available memory in MB
             float availableMemory = memCounter.NextValue();
 
+            // Wait for a moment to get a more accurate reading
+            System.Threading.Thread.Sleep(1000);
+
             // Read CPU usage percentage again
             cpuUsage = cpuCounter.NextValue();
             ViewBag.CpuUsage = cpuUsage;
