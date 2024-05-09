@@ -18,16 +18,16 @@ jobs:
       shell: bash
       run: |
         export tag_version="$(cat VERSION)";
-        docker build -t myapp:$tag_version --file Dockerfile .
-        docker tag myapp:$tag_version samplerndacr.azurecr.io/myapp:$tag_version
-        docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
-        docker image push samplerndacr.azurecr.io/myapp:$tag_version
+        # docker build -t myapp:$tag_version --file Dockerfile .
+        # docker tag myapp:$tag_version samplerndacr.azurecr.io/myapp:$tag_version
+        # docker login samplerndacr.azurecr.io -u ${{env.username}} -p ${{env.password}}
+        # docker image push samplerndacr.azurecr.io/myapp:$tag_version
 
         az login --service-principal --username ${{env.clientid}} --password ${{env.clientsecret}} --tenant ${{env.tenantid}}
-        az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing
-
-        cat kubernetes/myapp.yaml | envsubst > ./myapp.yaml
-        cat kubernetes/myapp.yaml
+        az aks get-credentials --resource-group rg-sample-rnd --name aks-myapp --overwrite-existing --admin
+        ls -lsa
+        cat myapp/kubernetes/myapp.yaml | envsubst > ./myapp/kubernetes/myapp.yaml
+        cat myapp/kubernetes/myapp.yaml
 
         kubectl apply -f kubernetes/myapp.yaml -n dotnet
 
