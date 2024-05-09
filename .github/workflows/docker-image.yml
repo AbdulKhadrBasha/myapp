@@ -20,7 +20,9 @@ jobs:
 
     - name: Set tag var
       id: vars
-      run: echo "docker_tag=$(echo ${vers})-${GITHUB_SHA}" >> $GITHUB_OUTPUT
+      run: |
+        echo "docker_tag=$(cat VERSION)}" >> $GITHUB_OUTPUT
+        echo $docker_tag
       
     - name: Build and push console
       working-directory: .
