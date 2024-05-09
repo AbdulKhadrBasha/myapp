@@ -40,16 +40,6 @@ public class HomeController : Controller
         ViewBag.CpuUsage = cpuUsage;
         ViewBag.MemUsage = availableMemory;
 
-        void Configure(IApplicationBuilder app)
-        {
-            // Other middleware configurations...
-
-            // Add the access log middleware
-            app.UseMiddleware<AccessLogMiddleware>("access.log");
-
-            // Other middleware configurations...
-        }
-
         return View();
     }
 
@@ -63,9 +53,9 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+    //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    //public IActionResult Error()
+    //{
+    //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    //}
 }
