@@ -20,6 +20,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var image_version = System.IO.File.ReadAllText("./VERSION");
+        ViewBag.ImageVersion = image_version;
         ViewBag.OSVersion = Environment.OSVersion;
         PerformanceCounter cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         // Read the current CPU usage percentage

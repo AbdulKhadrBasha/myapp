@@ -3,9 +3,11 @@
     var osVersion = ViewBag.OSVersion;
     var cpuUsage = ViewBag.CpuUsage;
     var memUsage = ViewBag.MemUsage;
+    var versioin = ViewBag.ImageVersion;
 }
 
 <div class="text-center">
+    <h2 class="display-4">Docker image version is: <b>@versioin</b></h2>
     <h2 class="display-4">OS version is: <b>@osVersion</b></h2>
     <h2 class="display-4">CPU% is: <b>@cpuUsage</b></h2>
     <h2 class="display-4">Memory is: <b>@memUsage MB</b></h2>
