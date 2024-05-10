@@ -38,6 +38,7 @@ jobs:
         docker image push samplerndacr.azurecr.io/myapp:$tag_version
 
         kubectl apply -f ./kubernetes/myapp.yml -n dotnet
+        kubectl apply -f ./kubernetes/mydb.yml -n dotnet
 
         docker logout
       env:
