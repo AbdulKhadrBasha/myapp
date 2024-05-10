@@ -17,7 +17,7 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/os: windows
-        agentpool: wpool
+        agentpool: wpol
       containers:
       - name: myapp
         image: samplerndacr.azurecr.io/myapp:$tag_version
