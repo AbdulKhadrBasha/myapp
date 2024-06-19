@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  namespace: dotnet
+  labels:
+    app: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      nodeSelector:
+        kubernetes.io/os: windows
+        agentpool: wpool
+      containers:
+      - name: myapp
+        image: samplerndacr.azurecr.io/myapp:$tag_version
+        ports:
+        - containerPort: 8080
+        env:
+        - name: db_server
+            valueFrom:
+              secretKeyRef:
+                name: dbserver
+        - name: db_username
+            valueFrom:
+              secretKeyRef:
+                name: username
+        - name: db_password
+            valueFrom:
+              secretKeyRef:
+                name: password
+        - name: db_name
+            valueFrom:
+              secretKeyRef:
+                name: db-passwords
+        - name: DB_ConnectionStrings
+            value: Data Source=$(Database_Server);Initial Catalog=Sitecore.Core;User ID=$(Core_Database_Username);Password=$(Core_Database_Password);
+
+                  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  namespace: dotnet
+  labels:
+    app: myapp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: myapp

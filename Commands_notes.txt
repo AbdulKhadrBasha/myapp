@@ -1,0 +1,78 @@
+
+Create mvc webapp
+-----------------
+dotnet new mvc -o MvcMovie
+cd MvcMovie
+dotnet dev-certs https --trust
+dotnet run
+browse with localhost with port number
+dotnet publish -c Release
+
+Add Dockerfile into project
+FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build-env
+WORKDIR /App
+
+# Copy everything
+COPY . ./
+# Restore as distinct layers
+RUN dotnet restore "./MvcMovie.csproj"
+# Build and publish a release
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809
+WORKDIR /App
+COPY --from=build-env /App/out .
+ENTRYPOINT ["dotnet", "MvcMovie.dll"]
+
+docker build -t samplemvcapp:v1 -f Dockerfile .
+docker images
+docker run -p 5183:8080 --name mycontainer1 -it myapp:v1
+docker run -d -p 7062:8081 --name mycontainer2 -i myapp:v2
+
+
+Database
+--------
+docker pull mcr.microsoft.com/windows/servercore:ltsc2019
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Basha@123" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/windows/servercore:ltsc2019 (Windows image)
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Basha@123" -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:2019-latest (Linux image)
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Basha@123" -e DB_PORT=5432 -e DB_HOST=docker.host.internal -p 5432:1433 --name sql_server_container3 -it mcr.microsoft.com/windows/servercore:ltsc2019
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Basha@123" -p 1433:1433 --name sql_server_container2016 -it mcr.microsoft.com/windows/servercore:ltsc2016
+
+docker run -it --name MyContainer -v C:\temp:C:\setup mcr.microsoft.com/windows/servercore:ltsc2019 powershell
+& “c:\setup\setup.exe” /Q /Action=Install /IAcceptSQLServerLicenseTerms /IndicateProgress /Features=SQLEngine,Conn /InstanceName=MSSQLSERVER /TcpEnabled=1 /SecurityMode=SQL /SaPwd=Basha@123 /SqlSysAdminAccounts=“ContainerAdministrator”
+
+docker run -e DB_PORT=5432 -e DB_HOST=docker.for.mac.host.internal
+
+docker exec -it f8eb8f707d2f050c05ee3a4c4240bc656ae032f0c4da6f327f2e95b00e091303 /bin/bash /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Basha@123
+
+CREATE DATABASE mydb;
+Server=localhost,1433;Database=mydb;User=sa;Password=Basha@123
+
+
+docker tag myapp:v4 samplerndacr.azurecr.io/myapp:v4
+docker tag mcr.microsoft.com/mssql/server:2019-latest 458460/mydb:v1
+docker push 458460/mydb:v1
+docker push 458460/myapp:v1
+
+
+az aks check-acr --name aks-myapp --resource-group rg-sample-rnd --acr samplerndacr.azurecr.io
+az aks update -n aks-myapp -g rg-sample-rnd --attach-acr samplerndacr
+
+20.219.167.137
+aks-dev-east-us
+
+$guid = New-Guid
+$containerName = 'Sql2017-Local'
+
+docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+docker run -p 51433:1433 -e "MSSQL_SA_PASSWORD=Basha@123" -e "ACCEPT_EULA=Y" -e "MSSQL_PID=Developer" --label source=webappdb -d --name webappdb -v sql2017volume:/var/opt/mssql mcr.microsoft.com/mssql/server:2019-latest
+
+
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec['initContainers', 'containers'][*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c
+
+version 16 is good
